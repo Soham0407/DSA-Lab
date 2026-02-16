@@ -100,20 +100,43 @@ bool search(Node *head, int value)
     return false;
 }
 
-void reverseList(Node *&head)
+Node *reverseList(Node *s)
 {
-    Node *prev = NULL;
-    Node *curr = head;
-    Node *next = NULL;
+    if (s == NULL)
+        return s;
 
-    while (curr != NULL)
+    if (s->next == NULL)
     {
-        next = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = next;
+        printf("single node");
+        return s;
     }
-    head = prev;
+
+    if (s->next->next == NULL)
+    {
+        Node *p = s;
+        Node *q = s->next;
+
+        q->next = p;
+        p->next = NULL;
+
+        return q;
+    }
+
+    Node *p = s;
+    Node *q = s->next;
+    p->next = NULL;
+
+    while (q != NULL)
+    {
+        Node *r = q->next;
+
+        q->next = p;
+
+        p = q;
+        q = r;
+    }
+
+    return p;
 }
 
 bool detectCycle(Node *head)
@@ -151,13 +174,83 @@ void displayList(Node *head)
 int main()
 {
     Node *head = NULL;
+    int choice, value, pos;
 
-    insertAtTail(head, 10);
-    insertAtTail(head, 20);
-    insertAtTail(head, 30);
-    deleteByValue(head, 20);
-    reverseList(head);
-    displayList(head);
+    do
+    {
+        cout << "\n--- Singly Linked List Menu ---\n";
+        cout << "1. Insert at Head\n";
+        cout << "2. Insert at Tail\n";
+        cout << "3. Delete by Value\n";
+        cout << "4. Delete by Position\n";
+        cout << "5. Search\n";
+        cout << "6. Reverse List\n";
+        cout << "7. Detect Cycle\n";
+        cout << "8. Display List\n";
+        cout << "0. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            cout << "Enter value: ";
+            cin >> value;
+            insertAtHead(head, value);
+            break;
+
+        case 2:
+            cout << "Enter value: ";
+            cin >> value;
+            insertAtTail(head, value);
+            break;
+
+        case 3:
+            cout << "Enter value to delete: ";
+            cin >> value;
+            deleteByValue(head, value);
+            break;
+
+        case 4:
+            cout << "Enter position (0-based): ";
+            cin >> pos;
+            deleteByPosition(head, pos);
+            break;
+
+        case 5:
+            cout << "Enter value to search: ";
+            cin >> value;
+            if (search(head, value))
+                cout << "Value found\n";
+            else
+                cout << "Value not found\n";
+            break;
+
+        case 6:
+            head = reverseList(head);
+            cout << "List reversed\n";
+            break;
+
+        case 7:
+            if (detectCycle(head))
+                cout << "Cycle detected\n";
+            else
+                cout << "No cycle detected\n";
+            break;
+
+        case 8:
+            displayList(head);
+            break;
+
+        case 0:
+            cout << "Exiting";
+            break;
+
+        default:
+            cout << "Invalid choice\n";
+        }
+
+    } while (choice != 0);
 
     return 0;
 }

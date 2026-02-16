@@ -42,6 +42,10 @@ int main()
 {
     InsertFront(10);
     InsertFront(20);
+    InsertFront(30);
+    InsertFront(40);
+    PrintList();
+    InsertFront(50);
     Undo();
     PrintList();
 
