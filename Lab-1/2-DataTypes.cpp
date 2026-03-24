@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-struct Student  
+struct Student
 {
     int rollNo;
     float marks;
@@ -15,8 +15,8 @@ int main()
     char ch = 'A';
 
     // Non-primitive data types
-    int arr[3] = {1, 2, 3};    // Array
-    Student s = {1, 89.5};     // Structure
+    int arr[3] = {1, 2, 3}; // Array
+    Student s = {1, 89.5};  // Structure
 
     cout << "For Primitive Data Types" << endl;
 
@@ -29,13 +29,12 @@ int main()
     cout << "Size of x = " << sizeof(x) << endl;
 
     cout << "Character ch = " << ch << endl;
-    cout << "Address of ch = " << (void*)&ch << endl;
+    cout << "Address of ch = " << &ch << endl;
     cout << "Size of ch = " << sizeof(ch) << endl;
 
-    
     cout << "For Non-Primitive Data Types" << endl;
     cout << "Array elements:" << endl;
-    for(int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
         cout << "arr[" << i << "] = " << arr[i] << "\t Address = " << &arr[i] << endl;
     }

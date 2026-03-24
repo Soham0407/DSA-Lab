@@ -112,30 +112,30 @@ Node *rotateByK(Node *head, int k)
 
 Node *deleteDuplicates(Node *head)
 {
-    unordered_map<int, int> freq;
-    Node *curr = head;
-    while (curr)
-    {
-        freq[curr->data]++;
-        curr = curr->next;
-    }
 
-    curr = head;
-    while (curr)
+    for (Node *curr = head; curr != NULL; curr = curr->next)
     {
-        Node *nextNode = curr->next;
-        if (freq[curr->data] > 1)
+        Node *runner = curr->next;
+
+        while (runner != NULL)
         {
-            if (curr->prev)
-                curr->prev->next = curr->next;
-            else
-                head = curr->next;
+            if (runner->data == curr->data)
+            {
+                Node *dup = runner;
+                runner = runner->next;
 
-            if (curr->next)
-                curr->next->prev = curr->prev;
-            delete curr;
+                if (dup->prev)
+                    dup->prev->next = dup->next;
+                if (dup->next)
+                    dup->next->prev = dup->prev;
+
+                delete dup;
+            }
+            else
+            {
+                runner = runner->next;
+            }
         }
-        curr = nextNode;
     }
     return head;
 }
@@ -193,26 +193,6 @@ Node *swapNodes(Node *head, int x, int y)
     return head;
 }
 
-Node *cloneDLL(Node *head)
-{
-    unordered_map<Node *, Node *> mp;
-    Node *curr = head;
-    while (curr)
-    {
-        mp[curr] = new Node(curr->data);
-        curr = curr->next;
-    }
-
-    curr = head;
-    while (curr)
-    {
-        mp[curr]->next = mp[curr->next];
-        mp[curr]->prev = mp[curr->prev];
-        mp[curr]->random = mp[curr->random];
-        curr = curr->next;
-    }
-    return mp[head];
-}
 
 int main()
 {

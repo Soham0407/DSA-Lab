@@ -32,7 +32,7 @@ string infixToPostfix(string infix)
             s.push(ch);
         }
 
-        else if (ch == ')')
+        else if (ch == ')')     
         {
             while (!s.empty() && s.top() != '(')
             {

@@ -43,7 +43,7 @@ void display(Node *head)
         cout << curr->data << " ";
         curr = curr->next;
     } while (curr != head);
-    cout << "(back to " << head->data << ")\n";
+    cout << "HEAD\n";
 }
 
 pair<Node *, Node *> splitList(Node *head)
@@ -134,7 +134,7 @@ Node *reverseCLL(Node *head)
     {
         nextNode = curr->next;
         curr->next = prev;
-        prev = curr;
+        prev = curr;    
         curr = nextNode;
     } while (curr != head);
 
