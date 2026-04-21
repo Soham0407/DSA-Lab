@@ -9,40 +9,27 @@ struct NODE
 
 NODE *reverseInGroups(NODE *head, int k)
 {
-    if (head == NULL || k <= 1)
-        return head;
+    if (head == NULL)
+        return NULL;
 
-    NODE dummy;
-    dummy.next = head;
-    NODE *prevGroup = &dummy;
+    NODE *curr = head;
+    NODE *prev = NULL;
+    NODE *next = NULL;
+    int count = 0;
 
-    while (true)
+    while (curr != NULL && count < k)
     {
-        NODE *kth = prevGroup;
-        for (int i = 0; i < k && kth != NULL; i++)
-            kth = kth->next;
-
-        if (kth == NULL)
-            break;
-
-        NODE *groupNext = kth->next;
-        NODE *prev = groupNext;
-        NODE *curr = prevGroup->next;
-
-        while (curr != groupNext)
-        {
-            NODE *nextNode = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = nextNode;
-        }
-
-        NODE *temp = prevGroup->next;
-        prevGroup->next = kth;
-        prevGroup = temp;
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+        count++;
     }
 
-    return dummy.next;
+    if (next != NULL)
+        head->next = reverseInGroups(next, k);
+
+    return prev;
 }
 
 void display(NODE *head)
